@@ -63,10 +63,39 @@ de autenticação e da área pessoal usam `Cache-Control: no-store`.
 ## Escopo atual
 
 Laravel, Blade, Livewire, Vite e ambiente PHP 8.4/MySQL 8.4; página pública
-inicial, autenticação básica e verificações da aplicação e banco. Memberships,
-assinaturas, dados financeiros, segundo fator e PWA ficam para incrementos posteriores.
+inicial, autenticação básica, base de workspaces/memberships e verificações da
+aplicação e banco. Convites, gestão completa de membros, assinaturas, dados
+financeiros, segundo fator e PWA ficam para incrementos posteriores.
 Alpine será usado por meio do Livewire, evitando carregar duas instâncias.
-Nenhuma regra financeira ou política de compartilhamento foi implementada.
+Nenhuma regra financeira ou política de compartilhamento por recurso foi implementada.
+
+## Workspaces financeiros
+
+Após entrar, acesse `/espacos` ou use o botão do painel para criar seu espaço
+financeiro. A criação inclui a membership do proprietário e seleciona o novo
+contexto. É possível criar e alternar entre espaços com nomes e fusos horários
+distintos. A visualização de um espaço não muda o contexto ativo; a seleção
+é feita explicitamente por POST.
+
+A listagem é paginada e inclui apenas memberships ativas do usuário. O
+servidor revalida a membership ao consultar, selecionar e editar; um ID de
+outro workspace resulta em 404. Se a membership do contexto ativo deixar de
+existir ou ficar inativa, o painel limpa a seleção, sem exibir dados alheios.
+Somente o proprietário com papel de proprietário e membership ativa edita
+nome/fuso. A criação e edição possuem auditoria transacional com ator,
+momento e nomes dos campos alterados, sem registrar seu conteúdo.
+
+As tabelas `workspaces`, `workspace_members` e `audit_logs` são criadas por
+migration aditiva. Em instalações existentes, execute
+`docker compose exec app php artisan migrate`.
+Convites e gestão dos demais membros ainda não estão disponíveis. Os papéis
+no banco preparam esses fluxos; não concedem acesso a registros financeiros
+privados. O desenvolvimento local segue sem cobrança/bloqueios de licença,
+cuja política precisa ser definida e implementada antes da publicação.
+
+O andamento das três fases está em `docs/IMPLEMENTATION.md`.
+Todas as pendências de implementação e validação, separadas por fase, estão
+em `docs/PENDING_BY_PHASE.md`.
 
 ## Publicação na KingHost
 

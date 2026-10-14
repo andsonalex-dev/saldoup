@@ -21,7 +21,7 @@ class AuthenticationController extends Controller
         Auth::login($this->authentication->register($request->validated()));
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->intended(route('dashboard'));
     }
 
     public function login(LoginRequest $request): RedirectResponse

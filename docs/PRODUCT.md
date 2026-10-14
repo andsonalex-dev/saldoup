@@ -31,7 +31,7 @@ Pessoas que querem controlar receitas, despesas, cartões e dívidas; famílias 
 - Entidades financeiras têm `workspace_id`, `created_by` e política de visibilidade (`shared` ou `private`) quando aplicável.
 - Recursos privados são acessíveis ao dono e somente a quem receber autorização explícita; o proprietário do workspace não obtém automaticamente acesso a registros privados.
 - Transferir propriedade, remover membros e alterar visibilidade exigem fluxos seguros e auditoria.
-- Definir antes da implementação como lançamentos privados afetam indicadores familiares: padrão recomendado é excluir valores privados dos agregados compartilhados.
+- Decisão confirmada: excluir valores privados dos indicadores familiares compartilhados; autorização explícita continua obrigatória para acesso aos registros privados.
 
 ## 5. Funcionalidades por fase
 ### Fase 1 — MVP: base e controle
@@ -85,6 +85,20 @@ A estrutura exata e os relacionamentos devem ser definidos por incrementos, com 
 ## 10. Decisões pendentes de produto
 1. Planos, preços, limite de membros e política de expiração/tolerância.
 2. TOTP como 2FA padrão e política de exigência.
-3. Escopo de visibilidade de dados privados nos indicadores familiares.
+3. Visibilidade confirmada: valores privados ficam fora dos indicadores familiares compartilhados; implementar e testar autorização explícita por recurso.
 4. Política de exclusão, exportação e retenção de dados conforme análise LGPD.
 5. Provedor de hospedagem e disponibilidade real de PHP, cron, extensões, SSH e configuração do document root.
+
+### Direção de implementação confirmada
+- Desenvolvimento e testes locais com Docker, PHP 8.4 e MySQL; validação da KingHost antes do deploy.
+- Autenticação atual por e-mail e senha; login por código de e-mail em atualização futura. Segundo fator permanece a definir.
+- Durante o desenvolvimento local, não haverá cobrança ou bloqueios de licença. Esta decisão não define um plano comercial; regras de licença precisam ser definidas e implementadas antes da publicação.
+
+- Administração confirmada em dois âmbitos: plataforma (usuários, papéis e
+  bloqueios, sem acesso financeiro automático) e família (permissões no
+  workspace, respeitando recursos privados). Administrador local separado da
+  conta pessoal; nenhuma senha padrão deve ser persistida no código.
+- Convites por e-mail, com entrega externa a validar após configuração SMTP.
+  A lógica de aceitação e a captura local de e-mail podem ser testadas antes.
+- Pagamentos parciais sem encargos automáticos e recorrências manuais de
+  previstos aprovados; detalhes no item 11 de `FINANCIAL_RULES.md`.

@@ -23,8 +23,8 @@ a autenticação de dois fatores.
   uso único, proteção contra tentativas/reenvios e entrega segura.
 - [ ] Definir se haverá segundo fator e sua política de exigência; TOTP
   permanece pendente nos documentos de produto.
-- [ ] Confirmar a política de agregação familiar dos dados privados antes
-  de implementar workspaces, compartilhamento ou indicadores.
+- [x] Confirmar a política de agregação familiar: excluir valores privados
+  dos totais compartilhados e exigir autorização explícita para acesso.
 - [ ] Definir exportação, exclusão e retenção de dados antes da produção.
 
 Esta lista complementa `docs/PRODUCT.md` e `docs/FINANCIAL_RULES.md`.

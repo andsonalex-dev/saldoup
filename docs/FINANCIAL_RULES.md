@@ -78,3 +78,53 @@
 6. Negociação confirmada não mantém duas programações de pagamento ativas.
 7. Dívida sem valor original permanece sem principal presumido.
 8. Usuário sem autorização não acessa transações privadas de outro membro.
+
+## 11. Decisões confirmadas para o núcleo local da Fase 1
+
+- BRL com duas casas decimais. Rejeitar precisão maior; não arredondar entradas
+  silenciosamente. Entrada monetária como string decimal, com ponto ou vírgula
+  decimal e sem separador de milhar; DECIMAL(15,2) para valores persistidos.
+- Receitas/despesas e pagamentos têm valor positivo e direção explícita.
+  Saldo inicial e saldo manual informado negativos ainda não estão disponíveis;
+  saldos calculados podem ficar negativos pela aplicação dos movimentos.
+- Saldos informados são conciliados por diferença identificada como ajuste,
+  preservando saldo inicial e histórico. Ajustes não são receita/despesa de
+  consumo. Investimentos não recebem atualizações automáticas de mercado.
+- Privacidade é definida na conta/cartão e herdada por seus movimentos/faturas.
+  Recursos privados exigem o criador ou autorização explícita de leitura/gestão,
+  membership ativa e permissões correspondentes. O proprietário do workspace
+  e o administrador da plataforma não recebem acesso privado automático.
+- Transferências exigem contas distintas com privacidade compatível; contas
+  privadas devem ter o mesmo criador e autorizações compatíveis. Dois movimentos
+  atômicos representam a operação, sem classificá-la como receita/despesa.
+- Estorno de receita/despesa efetivada é movimento oposto ligado ao original,
+  sem apagar ou cancelar silenciosamente o fato original. Repetir o estorno
+  não cria novo movimento. Previsto cancelado não altera o saldo.
+- Centavos extras de compras parceladas vão para as primeiras parcelas,
+  determinando uma soma exata. Compras no dia do fechamento são atribuídas à
+  fatura atual ou seguinte conforme configuração explícita do cartão.
+- Fechamento/vencimento em dia inexistente usa o último dia daquele mês.
+  O usuário configura o mês do vencimento (mesmo mês ou seguinte); faturas
+  guardam as datas atribuídas. Não presumir comportamento universal de emissores.
+- Pagamento parcial abate somente o valor pago; o restante permanece devido.
+  Não permitir pagamento acima do saldo registrado. Pagamento reduz caixa e
+  passivo do cartão e não é registrado novamente como despesa de consumo.
+- Juros, multas, rotativo e estornos de cartão permanecem desabilitados até
+  definição própria. Não projetar ou lançar encargos automaticamente.
+- Recorrências mensais/semanais geram previstos por ação manual, até término
+  explícito, em lotes de até 120 ocorrências. Em meses curtos, a data mensal
+  é limitada ao último dia, preservando o dia original nas ocorrências futuras.
+  Identificadores estáveis impedem duplicação de ocorrências; não depende de cron.
+- Dashboard familiar inclui somente contas/cartões compartilhados autorizados.
+  Mostra saldo efetivado atual e receitas/despesas do mês selecionado, líquidas
+  dos respectivos estornos. Compras de cartão são mostradas separadamente pelo
+  total na data da compra; pagamentos de fatura são saídas de caixa separadas.
+  A projeção das contas soma receitas previstas e subtrai despesas previstas
+  no mês; faturas pendentes aparecem separadamente, sem integração automática
+  à projeção nesta etapa. A previsão completa de caixa pertence à Fase 2.
+- Auditoria e timestamps técnicos em UTC, inclusive sessão MySQL; datas de
+  movimentos são datas civis do workspace. Indicadores de aberto/fechado/vencido
+  usam a data atual no fuso do workspace.
+
+Estas decisões não habilitam cobranças/licenças nem encerram as pendências
+comerciais, de segundo fator, hospedagem e validação externa.

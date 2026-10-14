@@ -29,7 +29,7 @@ class AuthenticationService
             throw ValidationException::withMessages(['email' => 'Muitas tentativas. Aguarde um minuto e tente novamente.']);
         }
 
-        if (! Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials + ['is_active' => true])) {
             RateLimiter::hit($key, 60);
             throw ValidationException::withMessages(['email' => 'E-mail ou senha inválidos.']);
         }

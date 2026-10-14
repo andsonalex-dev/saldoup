@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+@source '../views/**/*.blade.php';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@theme {
+    --font-sans: ui-sans-serif, system-ui, sans-serif;
+}
+
+:root { color-scheme: dark; }
+body { margin: 0; background: #17151e; color: #f5f3fa; font-family: var(--font-sans); }
+.welcome { max-width: 68rem; margin: auto; padding: clamp(1.5rem, 5vw, 4rem); min-height: 100svh; display: flex; flex-direction: column; }
+.brand { color: #f5f3fa; text-decoration: none; font-size: 1.75rem; font-weight: 800; }
+.brand span { color: #c2a3ff; }
+a:focus-visible { outline: 3px solid #c2a3ff; outline-offset: 6px; }
+section { padding-block: clamp(4rem, 13vh, 8rem); max-width: 46rem; }
+.eyebrow { color: #c2a3ff; font-weight: 600; margin-bottom: 1.5rem; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.035em; }
+.intro { font-size: 1.2rem; color: #ccc6d8; line-height: 1.7; margin-top: 1.5rem; max-width: 38rem; }
+.status { background: #262031; border-left: 3px solid #c2a3ff; padding: 1.2rem; margin-top: 2rem; line-height: 1.6; }
+footer { margin-top: auto; color: #b9b1c7; font-size: 0.875rem; line-height: 1.5; }
+
+.auth-panel { width: 100%; max-width: 30rem; padding-block: 3rem; }
+.form-title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+form { margin-block: 1.5rem; }
+label { display: block; margin-top: 1rem; margin-bottom: 0.4rem; font-weight: 600; }
+input { display: block; width: 100%; padding: 0.8rem; border: 1px solid #787084; border-radius: 0.5rem; background: #211d2b; color: #f5f3fa; font: inherit; }
+input:focus-visible, button:focus-visible { outline: 3px solid #c2a3ff; outline-offset: 3px; }
+input[aria-invalid="true"] { border-color: #ffb4b4; }
+button, .button { display: inline-block; padding: 0.85rem 1.3rem; margin-top: 1.5rem; background: #c2a3ff; color: #21132f; border-radius: 0.5rem; border: 0; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+button:hover, .button:hover { background: #d1baff; }
+.form-links { display: flex; gap: 1rem; flex-wrap: wrap; line-height: 1.6; margin-top: 1rem; }
+.form-links a { color: #d1baff; text-decoration: underline; }
+.field-help { font-size: 0.875rem; color: #ccc6d8; line-height: 1.5; margin-bottom: 0.5rem; }
+.notice, .errors { padding: 1rem; border-radius: 0.5rem; line-height: 1.6; margin-top: 1.5rem; }
+.notice { background: #1f352c; color: #c7efdc; }
+.errors { background: #3c242d; color: #ffd1d1; }
+.errors ul { list-style: disc; padding-left: 1.2rem; }
